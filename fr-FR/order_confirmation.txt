@@ -1,12 +1,12 @@
 {% capture email_title %}Merci pour votre commande {% endcapture %}
 {% capture email_body %}
   {% if requires_shipping %}
-   Bonjour {{ customer.first_name }}, votre commande est en préparation. Nous vous enverrons un message (avec son numéro de suivi) lorsque celle-ci sera expédiée. A bientôt ! 
+   Bonjour {{ customer.first_name }}, votre commande est en préparation. Nous vous enverrons un message (avec son numéro de suivi) lorsque celle-ci sera expédiée. À bientôt ! 
   {% endif %}
 {% endcapture %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
   <title>{{ email_title }}</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -45,7 +45,7 @@
 
                     <td class="order-number__cell">
                       <span class="order-number__text">
-                        Order {{ order_name }}
+                        Commande {{ order_name }}
                       </span>
                     </td>
                 </tr>
@@ -82,7 +82,7 @@
       {% if shop.url %}
     <table class="link secondary-action-cell">
       <tr>
-        <td class="link__cell"><a href="{{ shop.url }}" class="link__text"><span class='or'>ou</span> Accéder à la boutique</a></td>
+        <td class="link__cell"><a href="{{ shop.url }}" class="link__text"><span class='or'>ou</span> accéder à la boutique</a></td>
       </tr>
     </table>
 {% endif %}
@@ -98,7 +98,7 @@
         <td class="actions__cell">
           <table class="button main-action-cell">
             <tr>
-              <td class="button__cell"><a href="{{ shop.url }}" class="button__text">Visit our store</a></td>
+              <td class="button__cell"><a href="{{ shop.url }}" class="button__text">Visitez notre boutique</a></td>
             </tr>
           </table>
         </td>
@@ -150,7 +150,7 @@
           {% endif %}
 
           {% if line.quantity < line.quantity %}
-            {% capture line_display %} {{ line.quantity }} of {{ line.quantity }} {% endcapture %}
+            {% capture line_display %} {{ line.quantity }} sur {{ line.quantity }} {% endcapture %}
           {% else %}
             {% assign line_display = line.quantity  %}
           {% endif %}
@@ -178,7 +178,7 @@
     <td>
       <table class="row subtotal-table">
         {% if discounts %}
-          {% capture discount_title %}Discount {% if discounts.first.code %}({{ discounts.first.code }}){% endif %}{% endcapture %}
+          {% capture discount_title %}Promotion {% if discounts.first.code %}({{ discounts.first.code }}){% endif %}{% endcapture %}
           
 <tr class="subtotal-line">
   <td class="subtotal-line__title">
@@ -197,7 +197,7 @@
 <tr class="subtotal-line">
   <td class="subtotal-line__title">
     <p>
-      <span>Subtotal</span>
+      <span>Sous-total</span>
     </p>
   </td>
   <td class="subtotal-line__value">
@@ -209,7 +209,7 @@
 <tr class="subtotal-line">
   <td class="subtotal-line__title">
     <p>
-      <span>Shipping</span>
+      <span>Frais de port</span>
     </p>
   </td>
   <td class="subtotal-line__value">
@@ -292,7 +292,7 @@
 <tr class="subtotal-line">
   <td class="subtotal-line__title">
     <p>
-      <span>Refund</span>
+      <span>Remboursement</span>
         <br>
         <small>{{ refund_method_title | capitalize }}</small>
     </p>
@@ -326,7 +326,7 @@
         <table class="container">
           <tr>
             <td>
-              <h3>Information Client</h3>
+              <h3>Informations client</h3>
             </td>
           </tr>
         </table>
@@ -338,7 +338,7 @@
               <tr>
                 {% if requires_shipping and shipping_address %}
                 <td class="customer-info__item">
-                  <h4>Adresse d'envoi</h4>
+                  <h4>Adresse de livraison</h4>
                   <p>
   {{ shipping_address.name }}<br/>
   {{ shipping_address.address1 }}
@@ -372,7 +372,7 @@
               <tr>
                 {% if requires_shipping and shipping_address %}
                 <td class="customer-info__item">
-                  <h4>Mode d'envoi</h4>
+                  <h4>Méthode d'envoi</h4>
                   <p>{{ shipping_method.title }}</p>
                 </td>
                 {% endif %}
@@ -387,7 +387,7 @@
                           {% if transaction.payment_details.credit_card_company %}
                             {% capture credit_card_url %}notifications/{{ transaction.payment_details.credit_card_company | downcase | replace: " ", "_" }}.png{% endcapture %}
                             <img src="{{ credit_card_url | shopify_asset_url }}" class="customer-info__item-credit" height="24">
-                            <span>Ending in {{ transaction.payment_details.credit_card_last_four_digits }} — <strong>{{ total_price | money }}</strong></span>
+                            <span>numéro de carte terminé par {{ transaction.payment_details.credit_card_last_four_digits }} — <strong>{{ total_price | money }}</strong></span>
                           {% else %}
                             {{ transaction.gateway | replace: "_", " " | capitalize }} — <strong>{{ transaction.amount | money }}</strong>
                           {% endif %}
